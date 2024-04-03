@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<bibliography
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="reference">
+
+<bibliomixed xml:id="ref.regular_expression_csharp_python">
+  <bibliosource><link xl:href="http://www.crifan.com/summary_regular_expression_csharp_python/">【总结】关于（C#和Python中的）正则表达式</link></bibliosource>
+  <author>crifan</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.perl_regex_m">
+  <bibliosource><link xl:href="http://perldoc.perl.org/functions/m.html">perl regex: m//</link></bibliosource>
+  <author>perl.org</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.perl_regex_s">
+  <bibliosource><link xl:href="http://perldoc.perl.org/functions/s.html">perl regex: s///</link></bibliosource>
+  <author>perl.org</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.perl_regex_qr">
+  <bibliosource><link xl:href="http://perldoc.perl.org/functions/qr.html">perl regex: qr/STRING/</link></bibliosource>
+  <author>perl.org</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.perl_regexp_quote_like_op">
+  <bibliosource><link xl:href="http://perldoc.perl.org/perlop.html#Regexp-Quote-Like-Operators">Perl Regexp-Quote-Like-Operators</link></bibliosource>
+  <author>perl.org</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.python_re_unicode_s_w">
+  <bibliosource><link xl:href="http://python.6.x6.nabble.com/issue14258-Better-explain-re-LOCALE-and-re-UNICODE-for-S-and-W-td4568904.html">[issue14258] Better explain re.LOCALE and re.UNICODE for \S and \W</link></bibliosource>
+  <author>python.org</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.csharp_regex_options">
+  <bibliosource><link xl:href="http://msdn.microsoft.com/en-us/library/yd1hzczs%28v=vs.71%29.aspx">Regular Expression Options</link></bibliosource>
+  <author>microsoft</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.perl_rep_back_ref">
+  <bibliosource><link xl:href="http://www.crifan.com/perl_regex_replace_backreference/">【已解决】Perl中的正则表达式的替换和后向引用</link></bibliosource>
+  <author>crifan</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.wiki_actionscript">
+  <bibliosource><link xl:href="http://zh.wikipedia.org/wiki/ActionScript">ActionScript</link></bibliosource>
+  <author>wiki</author>
+</bibliomixed>
+
+ 
+</bibliography>

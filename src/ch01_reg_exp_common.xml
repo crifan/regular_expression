@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="reg_exp_common">
+<title>正则表达式的通用知识</title>
+<abstract></abstract>
+
+<sect1 xml:id="regular_expression_intro"><title>正则表达式简介</title>
+    <sect2 xml:id="what_is_reg_exp"><title>什么是正则表达式</title>
+        <para>正则表达式，英文叫做Regular Expression</para>
+        <para>正则表达式，简单说，就是一组规则，用于实现字符串的查找，匹配，以实现关于字符串的相关操作，比如替换，删除等。</para>
+        <para></para>
+        <para></para>
+        <para></para>
+    </sect2>
+    <sect2 xml:id="what_reg_exp_can_do"><title>正则表达式的功能和用途</title>
+        <para>所谓正则表达式的功能，通俗的说就是，正则表达式能干啥，你能用正则表达式做啥</para>
+        
+        主要都是针对，字符串，即给定一个字符串，对于一个输入的字符串，然后使用正则表达式，对其进行一定的处理，
+        
+        <para>目前，个人所见到的，正则表达式的用途，大概可以分为以下几类</para>
+        判断字符串是否符合某种条件
+        即所谓的匹配，对应的英文叫做match
+        
+        从字符串中，提取你想要的内容
+        即所谓的search
+        对于提取内容，再细分，有分两类
+        
+        对于匹配到的，某单个字符串，提取中间的，一个或多个字段
+        Python中对应的re.search
+        查找所有的，符合某条件的字符串
+        Python中对应的re.findall
+        
+        <para></para>
+        <sect3 xml:id="reg_exp_usage_eg"><title>正则表达式的用途举例</title>
+            <para></para>
+            <para></para>
+            <para></para>
+        </sect3>
+    </sect2>
+    
+    <sect2 xml:id="how_to_use_reg_exp"><title>如何使用正则表达式</title>
+        <para>简单来说有两种</para>
+        <para>在某种语言中使用正则表达式</para>
+        <para>使用专门的正则表达式方面的工具</para>
+        <para>下面来详细解释一下：</para>
+        <sect3 xml:id="use_inside_some_lan"><title>在某种语言中使用正则表达式</title>
+            <para>正常的用法，绝大多数的用法，都是这类</para>
+            <para></para>
+            <para></para>
+        </sect3>
+        <sect3 xml:id="use_reg_exp_tool"><title>使用专门的正则表达式方面的工具</title>
+            <para>另外，也有些，专门的，用于验证和使用正则表达式的工具</para>
+            <para>比如在线的某些网站，专门提供类似的，验证正则表达式的语法是否正常，功能是否正确</para>
+            <para>有人专门制作的，正则表达式的学习和使用方面的工具</para>
+            <para>目前看来，最好用的，算是：<link xl:href="http://www.regexbuddy.com/index.html">RegexBuddy</link></para>
+            <para></para>
+        </sect3>
+
+        <para></para>
+    </sect2>
+
+    <para></para>
+    <para></para>
+    <para></para>
+    <para></para>
+    <para></para>
+    <para></para>
+    <para>很多语言目前都已实现了对应的正则表达式的支持。</para>
+    <para>目前个人已知的有:<xref linkend="javascript_regexp" />, <xref linkend="npp_regular_expression"/>, <xref linkend="python_re"/>, <xref linkend="csharp_regex"/>, <xref linkend="php_pcre" />, <xref linkend="perl_two_slash" />, <xref linkend="java_regex" />, <xref linkend="editplus_tr1" />, <xref linkend="ultraedit_regex" />, <xref linkend="actionscript_regexp" />, <xref linkend="objectc_regexkitLite" />。</para>
+    <para>学会了正则表达式后，很多常见的文字，字符串的处理，就简单的多了，或者可以更加高效地实现功能，实现更加复杂的操作了。</para>
+    <para></para>
+    <para>入门相对不难，但是能熟练，高效的利用其功能，还是不容易的。</para>
+</sect1>
+
+<sect1 xml:id="regular_expression_grammar"><title>正则表达式的通用语法</title>
+    <para>正则表达式本身，算是一种语言，其有自己一定的规则。</para>
+    <para>只不过每种其他语言在实现正则表达式的时候，却又对有些规则有些自己的定义。</para>
+    <para>此处，只是列出一些最基本，各个语言中都通用的一些规则。</para>
+    <table xml:id="tbl.reg_exp_rules_common"><title>正则表达式中通用字符匹配规则</title>
+        <tgroup cols="4">
+            <colspec colnum="1" colname="col1" colwidth="1*" />
+            <colspec colnum="2" colname="col2" colwidth="1*" />
+            <colspec colnum="3" colname="col3" colwidth="2*" />
+            <colspec colnum="4" colname="col4" colwidth="2*" />
+            
+            <thead>
+                <row><entry>特殊字符</entry><entry>等价于</entry><entry>含义解释</entry><entry>提示</entry></row>
+            </thead>
+                
+            <tbody>
+                <row><entry>.</entry><entry></entry><entry>表示任意字符（除了换行符\n以外的任意单个字符）</entry><entry></entry></row>
+                <row><entry>^</entry><entry></entry><entry>表示字符串的开始</entry><entry></entry></row>
+                <row><entry>$</entry><entry></entry><entry>表示字符串行末或换行符之前</entry><entry></entry></row>
+                <row><entry>*</entry><entry>{0,无穷多个}</entry><entry>0或多个前面出现的正则表达式</entry><entry>贪婪原则，即尽量匹配尽可能多个</entry></row>
+                <row><entry>+</entry><entry>{1,无穷多个}</entry><entry>1或多个前面出现的正则表达式</entry><entry>贪婪原则，即尽量匹配尽可能多个</entry></row>
+                <row><entry>?</entry><entry></entry><entry></entry><entry></entry></row>
+                <row><entry>*?,+?,??</entry><entry></entry><entry>使*，+，?尽可能少的匹配</entry><entry>最少原则</entry></row>
+                <row><entry>{m}</entry><entry></entry><entry>匹配m个前面出现的正则表达式</entry><entry></entry></row>
+                <row><entry>{m,n}</entry><entry></entry><entry>匹配最少m个，最多n个前面出现的正则表达式</entry><entry>贪婪原则，即尽量匹配尽可能多个</entry></row>
+                <row><entry>{m,n}?</entry><entry></entry><entry>匹配最少m个，最多n个前面前出现的</entry><entry>最少原则</entry></row>
+                <row><entry>\</entry><entry></entry><entry>后接那些特殊字符，表示该字符；或者后接已经定义好的特殊含义的序列</entry><entry>对于已经定义好的特殊序列，详细解释参考<xref linkend="tbl.reg_exp_rules_escape" /></entry></row>
+                <row><entry>[]</entry><entry></entry><entry>指定所要匹配的字符集，可以列出单个字符；或者是一个字符范围，起始和结束字符之间用短横线-分割；</entry><entry></entry></row>
+                <row><entry>|</entry><entry></entry><entry>A|B,其中A和B可以是任意正则表达式，其中也支持更多的抑或A|B|C|…</entry><entry></entry></row>
+                <row><entry>(...)</entry><entry></entry><entry>匹配括号内的字符串</entry><entry>实现分组功能，用于后期获得对应不同分组中的字符串</entry></row>
+            </tbody>
+        </tgroup>
+    </table>
+    <para></para>
+    <para>正则中，还有一些，相对比较通用的标记(flag),又称修饰符(modifier)，限定符,或者说不同的模式</para>
+    <table xml:id="tbl.reg_exp_flag_common"><title>正则表达式中通用的限定符</title>
+        <tgroup cols="3">
+            <colspec colnum="1" colname="col1" colwidth="1*" />
+            <colspec colnum="2" colname="col2" colwidth="1*" />
+            <colspec colnum="3" colname="col3" colwidth="4*" />
+            
+            <thead>
+                <row><entry>限定符类型/模式</entry><entry>英文叫法</entry><entry>含义解释</entry></row>
+            </thead>
+
+            <tbody>
+                <row><entry>忽略大小写模式</entry><entry>ignore case mode</entry><entry>默认不加此参数，是大小写区分的。加了此参数，则不区分大小写</entry></row>
+                <row><entry>单行模式</entry><entry>single line mode</entry><entry>默认'.'是不匹配回车换行的。加了此参数，则使得'.'也匹配回车换行，这就使得原本，中间包含了换行的，多行的字符串，变成了单行的效果。</entry></row>
+                <row><entry>多行模式</entry><entry>multiple line mode</entry><entry>默认情况是：^只匹配，整个（中间包含了回车换行的，多行的）字符串的开始，同理，$只匹配整个字符串的末尾。而加上次参数，则^也匹配每个'\n'==newline=换行符之后的那个位置，表示下一行的开始，同理，$也匹配，换行符之前的那个位置，表示之前一行的结束位置</entry></row>
+                <row><entry>松散模式</entry><entry>verbose mode/relax regular expression/ignore Whitespace</entry><entry>默认的正则，都是连续的写在一起的，可以叫做，紧凑型的正则。加上此参数，则运行你在，原先是紧凑的正则中间，加上一些空格或tab，用于对齐格式，以及一些注释内容，目的在于方便别人看懂你写的正则，所以，相对紧凑型的写法，叫做，松散正则。此时，松散正则里面的空白符，即回车，换行，tab，都被忽略，如果想要表达回车换行本身，需要转义。松散正则中的注释，当然在解析的时候，也会被忽略掉的。</entry></row>
+                <row><entry>区域模式</entry><entry>locale mode</entry><entry>根据当前的local不同，会影响到其他一些正则的含义，比如\w, \W, \b, \B, \s and \S</entry></row>
+                <row><entry>Unicode模式</entry><entry>unicode mode</entry><entry>根据Unicode字符编码去匹配，会影响到其他一些正则的含义，比如\w, \W, \b, \B, \d, \D, \s and \S</entry></row>
+            </tbody>
+        </tgroup>
+    </table>
+    <para></para>
+    <para>相应的，不同语言中，上述的限定符写法，也不太相同。总结如下</para>
+    <table xml:id="tbl.reg_exp_flag_write_style"><title>正则表达式中通用的限定符的不同语言中的写法</title>
+        <tgroup cols="7">
+            <colspec colnum="1" colname="col1" colwidth="1*" />
+            <colspec colnum="2" colname="col2" colwidth="1*" />
+            <colspec colnum="3" colname="col3" colwidth="1*" />
+            <colspec colnum="4" colname="col4" colwidth="1*" />
+            <colspec colnum="5" colname="col5" colwidth="1*" />
+            <colspec colnum="6" colname="col6" colwidth="1*" />
+            <colspec colnum="7" colname="col7" colwidth="1*" />
+            
+            <thead>
+                <row><entry>不同语言/限定符写法</entry><entry>忽略大小写模式</entry><entry>单行模式</entry><entry>多行模式</entry><entry>松散模式</entry><entry>区域模式</entry><entry>Unicode模式</entry></row>
+            </thead>
+
+            <tbody>
+                <row><entry>C#</entry><entry>RegexOptions.IgnoreCase</entry><entry>RegexOptions.Singleline</entry><entry>RegexOptions.Multiline</entry><entry>RegexOptions.IgnorePatternWhitespace</entry><entry>RegexOptions.CultureInvariant（此点待确认）</entry><entry>未知</entry></row>
+                <row><entry>Pyton</entry><entry>re.IGNORECASE/re.I</entry><entry>re.DOTALL/re.S</entry><entry>re.MULTILINE/re.M</entry><entry>re.VERBOSE/re.X</entry><entry>re.LOCALE/re.L</entry><entry>re.UNICODE/re.U</entry></row>
+                <row><entry>Perl</entry><entry>i</entry><entry>s</entry><entry>m</entry><entry>x</entry><entry>l</entry><entry>u</entry></row>
+            </tbody>
+        </tgroup>
+    </table>
+    <para></para>
+    <table xml:id="tbl.reg_exp_rules_escape"><title>正则表达式中已定义的转义字符序列</title>
+        <tgroup cols="4">
+            <colspec colnum="1" colname="col1" colwidth="1*" />
+            <colspec colnum="2" colname="col2" colwidth="1*" />
+            <colspec colnum="3" colname="col3" colwidth="2*" />
+            <colspec colnum="4" colname="col4" colwidth="2*" />
+            
+            <thead>
+                <row><entry>特殊序列/已定义的字符含义</entry><entry>等价于</entry><entry>含义解释</entry><entry>提示</entry></row>
+            </thead>
+                
+            <tbody>
+                <row><entry>\数字</entry><entry></entry><entry>表示前面用括号（）括起来的某个组group</entry><entry></entry></row>
+                <row><entry>\A</entry><entry></entry><entry>表示字符串的开始</entry><entry></entry></row>
+                <row><entry>\b</entry><entry></entry><entry>匹配空字符，但只是，一个单词word的，除了开始或者结束位置的，的空字符</entry><entry></entry></row>
+                <row><entry>\B</entry><entry>\b含义取反</entry><entry>0或多个前面出现的正则表达式</entry><entry></entry></row>
+                <row><entry>\d</entry><entry>[0-9]</entry><entry>匹配单个数字（0到9中的某个数字）</entry><entry></entry></row>
+                <row><entry>\D</entry><entry>[0-9]的取反</entry><entry>非数字的单个字符，即除了0-9之外的任意单个字符</entry><entry></entry></row>
+                <row><entry>\s</entry><entry>[ \t\n\r\f\v]</entry><entry>匹配单个空白字符，包括空格，水平制表符\t,回车\r,换行\n,换页\f,垂直制表符\v</entry><entry>英文单词一般叫做blankspace，简称space，所以此处的s就是space的意思</entry></row>
+                <row><entry>\S</entry><entry>\s的含义取反</entry><entry>匹配非空白字符之外的单个字符</entry><entry></entry></row>
+                <row><entry>\w</entry><entry>[a-zA-Z0-9_]</entry><entry>匹配单个的任何字符，数字，下划线</entry><entry></entry></row>
+                <row><entry>\W</entry><entry>\w的含义取反</entry><entry>匹配单个的，非字母数字下划线之外的字符</entry><entry></entry></row>
+                <row><entry>\Z</entry><entry></entry><entry>匹配字符串的末尾</entry><entry></entry></row>
+            </tbody>
+        </tgroup>
+    </table>
+
+    <para>下面介绍一些通用的规则：</para>
+    <para></para>
+    <para></para>
+
+    <sect2 xml:id="greedy_rule"><title>关于贪婪原则和最少原则</title>
+        <para>星号*,加号+，问号？，{m,n}，都是属于贪婪原则，即在满足这些条件的情况下，尽可能地匹配多个。</para>
+        <para>而对应的后面加上一个问号?，变成：*?, +?, ??, {m,n}?就变成了最少原则，即，在满足前面的条件的情况下，尽量少地匹配。</para>
+        <para>其中??，个人很少用。</para>
+        <para>而最常用的是 .+?，表示任意字符，最少是1个，然后后面匹配尽量少的所出现的字符。</para>
+    </sect2>
+    
+    <sect2 xml:id="backslash_char_self"><title>反斜杠</title>
+        <para>在正则表达式中，反斜杠\后面接一些特殊字符，表示该特殊字符，这些特殊是，上面所说过的：</para>
+        <para>.,^,$,*,+,?</para>
+        <para>对应的是：</para>
+        <para>\.,\^,\$,\*,\+,\?</para>
+        <para>以及反斜杠自己：</para>
+        <para>\\</para>
+        <para>其中如果是在中括号[]内，反斜杠加上对应的中括号[]和短横线-,即：</para>
+        <para>\[,\],\-</para>
+        <para>分别表示对应的字符本身。</para>
+    </sect2>
+
+    <sect2 xml:id="angle_bracket"><title>上尖括号^</title>
+        <para>在中括号之外，表示字符的开始；</para>
+        <para>在中括号之内，表示取反，比如常见的[^0-9]</para>
+        <para>比如[^5]表示除了数字5之外的所有字符。</para>
+        <para>尤其特别的是[^^]表示除了上尖括号字符本身之外的所有字符。</para>
+    </sect2>
+    
+    <sect2 xml:id="chars_inside_parenthese"><title>中括号[]内的+，*，(，)</title>
+        <para>中括号[]内的加号+，星号*，括号（,）表示对应字符本身，就不是特殊字符了。</para>
+    </sect2>
+
+</sect1>
+
+
+</chapter>

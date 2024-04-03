@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="java_regex">
+<title>Java中的正则表达式的学习心得</title>
+<abstract></abstract>
+
+<sect1 xml:id="java_regex_intro"><title>Java中的正则表达式的简介</title>
+    <para>Java中处理正则表达式的类是：java.util.regex</para>
+    <para>其下主要有两个大的子类：</para>
+    <itemizedlist>
+        <listitem>java.util.regex.Pattern
+            <para>专门用于处理正则表达式这个字符串本身</para>
+        </listitem>
+        <listitem>java.util.regex.Matcher
+            <para>处理，找到匹配的项之后，后续的处理，比如单个的替换，替换所有的等等</para>
+        </listitem>
+    </itemizedlist>
+</sect1>
+
+<sect1 xml:id="java_regex_syntax"><title>Java正则表达式的语法</title>
+    <para>Java中，正则表达式的语法，可以在官网文档中找到：</para>
+    <itemizedlist>
+        <listitem>Java 6的正则表达式的语法
+            <para><link xl:href="http://docs.oracle.com/javase/6/docs/api/java/util/regex/Pattern.html">(Java 6) java.util.regex.Pattern</link></para>
+            <para><link xl:href="http://docs.oracle.com/javase/6/docs/api/java/util/regex/Matcher.html">(Java 6) java.util.regex.Matcher</link></para>
+        </listitem>
+        <listitem>Java 7的正则表达式的语法
+            <para><link xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html">(Java 7) java.util.regex.Pattern</link></para>
+            <para><link xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Matcher.html">(Java 7) java.util.regex.Matcher</link></para>
+        </listitem>
+    </itemizedlist>
+</sect1>
+
+<sect1 xml:id="java_regex_example"><title>Java中正则表达式用法举例</title>
+    <example xml:id="eg.match_all_some_pattern"><title>匹配所有的某种格式的字符串</title>
+        <para>想要匹配：</para>
+        <screen>11A11、22A22、33A33、44B44、55B55</screen>
+        <para>中的每个值，并打印出来，然后对应的Java代码为：</para>
+        <programlisting language="java">
+<![CDATA[
+String digitNumStr = "11A11、22A22、33A33、44B44、55B55";
+//String digitNumStr = "11A11";
+Pattern digitNumP = Pattern.compile("(?<twoDigit>\\d{2})[A-Z]\\k<twoDigit>");
+Matcher foundDigitNum = digitNumP.matcher(digitNumStr);
+ 
+// Find all matches
+while (foundDigitNum.find()) {
+  // Get the matching string
+  String digitNumList = foundDigitNum.group();
+  System.out.println(digitNumList);
+}
+]]>
+        </programlisting>
+        <para>详细代码可参考<link xl:href="http://www.crifan.com/java_regex_how_to_findall/">【已解决】Java的正则表达式Regex中，如何查找所有的匹配的项</link></para>
+    </example>
+    <para></para>
+    <example xml:id="eg.named_group_rep_single"><title>带命名的组去替换单个字符串</title>
+        <para>想要将字符串</para>
+        <screen>aa/haha.exe</screen>
+        <para>中的前面部分去掉，只保留后面部分，即：</para>
+        <screen>haha.exe</screen>
+        <para>则用的java代码为：</para>
+        <programlisting language="java">
+<![CDATA[
+String filenameStr = "aa/haha.exe";
+ 
+//named group only support after Java 7
+//here is my java version:
+//Java: 1.7.0_09; Java HotSpot(TM) 64-Bit Server VM 23.5-b02
+Pattern filenameP = Pattern.compile("^.+/(?<filenamePart>.+)$");
+Matcher filenameMatcher = filenameP.matcher(filenameStr);
+boolean foundFilename = filenameMatcher.matches();
+         
+System.out.println(filenameMatcher);
+System.out.println(foundFilename);
+ 
+String onlyFilename = filenameMatcher.replaceFirst("${filenamePart}");
+System.out.println(onlyFilename);
+]]>
+        </programlisting>
+        <para>输出为：</para>
+        <screen>
+<![CDATA[
+java.util.regex.Matcher[pattern=^.+/(?<filenamePart>.+)$ region=0,11 lastmatch=aa/hahatrue]
+true
+haha.exe
+]]>
+        </screen>
+        <para>详细代码可参考：</para>
+        <para><link xl:href="http://www.crifan.com/java_util_regex_replacement/">【已解决】Java中的正则表达式（java.util.regex）的替换</link></para>
+        <para><link xl:href="http://www.crifan.com/java_util_regex_named_group/">【已解决】Java的正则表达式java.util.regex中的命名的组（named group）</link></para>
+    </example>
+
+</sect1>
+
+<sect1 xml:id="java_regex_note"><title>Java正则表达式的使用心得或注意事项</title>
+    <sect2 xml:id="double_slash_in_regex"><title>正则中的斜杠，要写成2个斜杠</title>
+        <para>普通程序中，即使是正则中，斜杠也就是斜杠。</para>
+        <para>但是java中，由于string的设计，导致斜杠，是特殊的转义字符，所以，在正则中，如果想要写普通的，正则的转义，比如'\d'表示数字，则要写成'\\d'才可以。</para>
+        <para>所就变成了：其他程序中，正常的写单个的斜杠的，java中，都要变成双斜杠。</para>
+        <para>详见：<link xl:href="http://www.crifan.com/java_regex_match_asterisk_char_itself/">【已解决】Java的正则表达式java.util.regex中匹配星号’*’ asterisk字符本身</link></para>
+        <para></para>
+    </sect2>
+    <sect2 xml:id="tetrad_slash_in_replaceall"><title>replaceAll中的斜杠，单个斜杠要写陈四个斜杠</title>
+        <para>如上所说，java中的，正则中的斜杠字符本身，要写成两个斜杠</para>
+        <para>而如果遇到replaceAll等函数，则一个斜杠，要写成四个斜杠，才能被识别。</para>
+        <para>比如你想把字符串中，所有的，的单个斜杠，都变成双斜杠，则要写成</para>
+        <programlisting language="java">
+<![CDATA[
+string.replaceAll("\\\\", "\\\\\\\\");
+]]>
+        </programlisting>
+        <para>详见：<link xl:href="http://www.crifan.com/android_java_string_regex_replace_remove_slash_in_multiple_define_line_end/">【已解决】android中的java的正则的替换：去除掉宏定义中行末的反斜杠</link></para>
+        <para></para>
+    </sect2>
+    <sect2 xml:id="java7_named_group"><title>java 7之后才支持命名的组(named group)</title>
+        <para>即，Java 6之前不支持named group</para>
+        <para>详见：<link xl:href="http://www.crifan.com/java_util_regex_named_group/">【已解决】Java的正则表达式java.util.regex中的命名的组（named group）</link></para>
+        <para></para>
+    </sect2>
+    <para></para>
+</sect1>
+
+</chapter>

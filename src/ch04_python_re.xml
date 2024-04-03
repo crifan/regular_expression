@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="python_re">
+<title>Python中的正则表达式re模块的学习心得</title>
+<abstract></abstract>
+
+<para>已将此部分内容，整理成单独的教程了。详见：</para>
+<para><link xl:href="http://www.crifan.com/files/doc/docbook/python_topic_re/release/html/python_topic_re.html">Python专题教程：正则表达式re模块详解</link></para>
+<para></para>
+<para></para>
+
+</chapter>

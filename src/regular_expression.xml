@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE book
+[
+
+<!ENTITY cur_book_name      "regular_expression" >
+<!ENTITY publish_date       "2013-09-05" >
+<!ENTITY release_version    "2.1" >
+
+<!ENTITY copyrith_year "2013" >
+<!ENTITY entity_common_multi_format     SYSTEM  "../../entity_common_multi_format.xml">
+<!ENTITY entity_common_publish_info     SYSTEM  "../../entity_common_publish_info.xml">
+]>
+
+<book version="5.0"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:lang="zh_CN"
+    >
+
+<info>
+    <title>正则表达式学习心得</title>
+    <subtitle></subtitle>
+    <keywordset>
+        <keyword>正则表达式</keyword>
+        <keyword>Python</keyword>
+        <keyword>C#</keyword>
+        <keyword>Javascript</keyword>
+        <keyword>PHP</keyword>
+        <keyword>Notepad++</keyword>
+    </keywordset>
+
+    <abstract>
+        <para>本文主要介绍了正则表达式的基本语法，以及Python，C#，PHP，Notepad++，Javascript，Perl, Java, EditPlus，UltraEdit，ActionScript，Object-C等语言和工具正则使用心得，以及总结了各个语言间正则表达式的区别。</para>
+        &entity_common_multi_format;
+    </abstract>
+
+    <revhistory>
+        <revision>
+            <revnumber>&release_version;</revnumber>
+            <date>&publish_date;</date>
+            <revremark>
+                <orderedlist>
+                    <listitem>完成此文逻辑框架</listitem>
+                    <listitem>添加了Javascript中的正则表达式</listitem>
+                    <listitem>添加了Notepad++t中的正则表达式</listitem>
+                    <listitem>添加了Python中的正则表达式的少部分内容</listitem>
+                    <listitem>将Python的re的语法和使用心得从language_summary中移过来了</listitem>
+                    <listitem>添加了C#的Regex</listitem>
+                    <listitem>添加了PHP的PCRE</listitem>
+                    <listitem>已将之前Python和C#之间的正则比较整理过来了</listitem>
+                    <listitem>已将C#的Regex整理过来了</listitem>
+                    <listitem>添加关于Perl, Java, EditPlus，UltraEdit，ActionScript，Object-C的正则</listitem>
+                    <listitem>将Python的re整理出去成为独立的教程</listitem>
+                </orderedlist>
+            </revremark>
+            <authorinitials>crl</authorinitials>
+        </revision>
+    </revhistory>
+
+    &entity_common_publish_info;
+</info>
+
+<xi:include href="ch01_reg_exp_common.xml" />
+<xi:include href="ch02_javascript_regexp.xml" />
+<xi:include href="ch03_npp_regular_expression.xml" />
+<xi:include href="ch04_python_re.xml" />
+<xi:include href="ch05_csharp_regex.xml" />
+<xi:include href="ch06_php_pcre.xml" />
+<xi:include href="ch07_perl_two_slash.xml" />
+<xi:include href="ch08_java_regex.xml" />
+<xi:include href="ch09_editplus_tr1.xml" />
+<xi:include href="ch10_ultraedit_regex.xml" />
+<xi:include href="ch11_actionscript_regexp.xml" />
+<xi:include href="ch12_objectc_regexkitLite.xml" />
+<xi:include href="ch13_reg_exp_compare.xml" />
+<xi:include href="reference.xml" />
+
+</book>

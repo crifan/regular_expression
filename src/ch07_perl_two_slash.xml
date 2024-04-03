@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="perl_two_slash">
+<title>Perl中的正则表达式的学习心得</title>
+<abstract></abstract>
+
+<sect1 xml:id="perl_regex_intro"><title>Perl中的正则表达式的简介</title>
+    <para>Perl中的正则表达式，最主要的语法就两种：m//和s///</para>
+    <itemizedlist>
+        <listitem>m//
+            <para>m=match,表示匹配</para>
+        </listitem>
+        <listitem>s///
+            <para>s=substitution，表示替换</para>
+        </listitem>
+    </itemizedlist>
+    <para>不论是匹配还是替换，后面都运行加上一些限制参数，叫做修饰符（Modifiers）</para>
+    <itemizedlist>
+        <listitem>m
+            <para>m=multiple line=多行模式</para>
+        </listitem>
+        <listitem>s
+            <para>s=single line=单行模式</para>
+        </listitem>
+        <listitem>i
+            <para>i=ignore case=忽略大小写</para>
+        </listitem>
+        <listitem>x
+            <para>x=extended=扩展模式=允许白空格和注释=松散正则</para>
+        </listitem>
+    </itemizedlist>
+</sect1>
+
+<sect1 xml:id="perl_regex_syntax"><title>Perl正则表达式的语法</title>
+    <para>关于Perl中的正则表达式的语法，目前找到的，相对最完整的介绍，在这里：<link xl:href="http://perldoc.perl.org/perlre.html">perlre</link></para>
+    <para>下面把其目录摘录如下，供快速查阅相关内容：</para>
+    <itemizedlist>
+        <listitem><link xl:href="http://perldoc.perl.org/perlre.html#Modifiers">Modifiers</link></listitem>
+        <listitem><link xl:href="http://perldoc.perl.org/perlre.html#Regular-Expressions">Regular Expressions</link></listitem>
+        <listitem><link xl:href="http://perldoc.perl.org/perlre.html#Quoting-metacharacters">Quoting metacharacters</link></listitem>
+        <listitem><link xl:href="http://perldoc.perl.org/perlre.html#Extended-Patterns">Extended Patterns</link></listitem>
+        <listitem><link xl:href="http://perldoc.perl.org/perlre.html#Special-Backtracking-Control-Verbs">Special Backtracking Control Verbs</link></listitem>
+        <listitem><link xl:href="http://perldoc.perl.org/perlre.html#Backtracking">Backtracking</link></listitem>
+        <listitem><link xl:href="http://perldoc.perl.org/perlre.html#Version-8-Regular-Expressions">Version 8 Regular Expressions</link></listitem>
+        <listitem><link xl:href="http://perldoc.perl.org/perlre.html#Warning-on-%5c1-Instead-of-%241">Warning on \1 Instead of $1</link></listitem>
+        <listitem><link xl:href="http://perldoc.perl.org/perlre.html#Repeated-Patterns-Matching-a-Zero-length-Substring">Repeated Patterns Matching a Zero-length Substring</link></listitem>
+        <listitem><link xl:href="http://perldoc.perl.org/perlre.html#Combining-RE-Pieces">Combining RE Pieces</link></listitem>
+        <listitem><link xl:href="http://perldoc.perl.org/perlre.html#Creating-Custom-RE-Engines">Creating Custom RE Engines</link></listitem>
+        <listitem><link xl:href="http://perldoc.perl.org/perlre.html#PCRE%2fPython-Support">PCRE/Python Support</link></listitem>
+    </itemizedlist>
+</sect1>
+
+<sect1 xml:id="perl_regex_example"><title>Perl正则表达式用法举例</title>
+    <example xml:id="eg.perl_regex_remove_html_tag"><title>Perl正则去除html的tag</title>
+        <para>想要将html</para>
+        <screen>
+<![CDATA[
+<h1>h1 content</h1>
+<div>
+    div test
+</div>
+ 
+<invalidTag> invalid tag test </invalid>
+]]>
+        </screen>
+        <para>中的标签tag去掉，变成：</para>
+        <screen>
+<![CDATA[
+h1 content
+ 
+    div test
+ 
+ 
+<invalidTag> invalid tag test </invalid>
+]]>
+        </screen>
+        <para>用的perl的正则的代码是：</para>
+        <programlisting language="perl">
+<![CDATA[
+$filteredHtml =~  s/<(\w+?)>(.+?)<\/\1>/$2/sg;
+]]>
+        </programlisting>
+        <para>详细代码可参考<link xl:href="http://www.crifan.com/perl_regex_replace_backreference/">【已解决】Perl中的正则表达式的替换和后向引用</link></para>
+    </example>
+</sect1>
+
+</chapter>

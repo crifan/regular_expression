@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="objectc_regexkitLite">
+<title>Object-C中的正则表达式的学习心得</title>
+<abstract></abstract>
+
+<sect1 xml:id="objc_regexp_intro"><title>Object-C中的正则表达式的简介</title>
+    <para>Objective-C Cocoa中的正则表达式，起初，是没有内置的库支持的。所以，很多人常用第三方面的库：RegexKitLite</para>
+    <para>而后来在OS X v10.7/iPhone 4.0后，有了内置支持正则的库：NSRegularExpression</para>
+</sect1>
+
+<sect1 xml:id="objc_regexp_syntax"><title>Objective-C正则表达式的语法</title>
+    <para>关于RegexKitLite可以（要翻墙）参考其官网：<link xl:href="http://regexkit.sourceforge.net/RegexKitLite/">RegexKitLite</link></para>
+    <para>关于内置的库NSRegularExpression，参考mac官网：<link xl:href="http://developer.apple.com/library/mac/#documentation/Foundation/Reference/NSRegularExpression_Class/Reference/Reference.html">NSRegularExpression Class Reference</link></para>
+    <para></para>
+</sect1>
+
+</chapter>

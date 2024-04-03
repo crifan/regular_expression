@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="actionscript_regexp">
+<title>ActionScript中的正则表达式的学习心得</title>
+<abstract></abstract>
+
+<sect1 xml:id="actionscript_regexp_intro"><title>ActionScript中的正则表达式的简介</title>
+    <para>ActionScript中的正则表达式，对应的是对象RegExp。</para>
+    <para>其和javascript很类似。</para>
+    <para>根据<xref linkend="ref.wiki_actionscript" />的解释，ActionScript是Adobe为Flash开发的脚步语言，是基于ECMAScript的。</para>
+    <para>而javascript也是基于ECMAScript的，所以两者，至少在正则方面，那基本上都是同一个regexp的库了，都是差不多的。</para>
+</sect1>
+
+<sect1 xml:id="actionscript_regexp_syntax"><title>actionscript正则表达式的语法</title>
+    <para>ActionScript的正则的语法，简述为；</para>
+    <para>ActionScript的正则，是RegExp类，其主要包含两个方法：exec() 和 test()。</para>
+    <para></para>
+    <para>可以参考Adobe官网的，详细解释：<link xl:href="http://help.adobe.com/zh_CN/ActionScript/3.0_ProgrammingAS3/WS5b3ccc516d4fbf351e63e3d118a9b90204-7ea8.html">对字符串使用正则表达式的方法</link></para>
+</sect1>
+
+<sect1 xml:id="actionscript_regexp_example"><title>ActionScript中正则表达式用法举例</title>
+    <para>暂无。</para>
+    <para>可参考javascript中的例子：<xref linkend="javascript_regexp_example" /></para>
+    <para></para>
+</sect1>
+
+</chapter>

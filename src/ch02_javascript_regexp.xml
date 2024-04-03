@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="javascript_regexp">
+<title>Javascript中的正则表达式的学习心得</title>
+<abstract></abstract>
+
+<sect1 xml:id="javascript_regexp_intro"><title>javascript中的正则表达式的简介</title>
+    <para>Javascript中的正则表达式，对应的是对象RegExp。</para>
+    <para></para>
+</sect1>
+
+<sect1 xml:id="javascript_regexp_syntax"><title>javascript正则表达式的语法</title>
+    <para>详细语法，可以去参考：<link xl:href="http://www.w3school.com.cn/js/jsref_obj_regexp.asp">JavaScript RegExp 对象参考手册</link></para>
+    <para></para>
+    <para></para>
+    <para></para>
+</sect1>
+
+<sect1 xml:id="javascript_regexp_example"><title>javascript中正则表达式用法举例</title>
+    <para></para>
+    <para></para>
+    <example xml:id="eg.js_re_match"><title>Javascript中match的用法举例</title>
+        <programlisting>
+//提取skydrive共享地址中的resid（resource id）
+shareAddrStr = "https://skydrive.live.com/redir?resid=9A8B8BF501A38A36!1578";
+//shareAddrStr = "https://skydrive.live.com/redir.aspx?cid=9a8b8bf501a38a36&amp;resid=9A8B8BF501A38A36!1578";
+var residRe = /resid=(\w+!\d+)/;
+var foundResid = shareAddrStr.match(residRe);
+if(!foundResid){
+    alert("貌似你输入的Skydrive共享地址有误，请确认输入了正确的地址！");
+    skydriveShareAddr.focus();
+    return false;
+}
+
+var resid = foundResid[1];//此处可以获得对应的resid=9A8B8BF501A38A36!1578
+        </programlisting>
+    </example>
+    <para>另外，match返回的结果foundResid，对应的也是foundResid[0]表示所匹配的字符串的整体，此处为：</para>
+    <para></para>
+</sect1>
+
+<sect1 xml:id="javascript_regexp_summary"><title>javascript正则表达式的使用心得或注意事项</title>
+    <orderedlist>
+        <listitem>注意两个斜杠最后，不是随便加g或i等属性的
+            <para>之前就看到别人说的，正则表达式的具体用法是:</para>
+            <para>/xxx/gi</para>
+            <para>其中g表示global，i表示区分大小写等等</para>
+            <para></para>
+            <para>然后我就不小心的在<xref linkend="eg.js_re_match" />中使用了gi属性，结果导致程序运行不正确。</para>
+            <para>后来才看到<link xl:href="http://www.w3school.com.cn/js/jsref_obj_regexp.asp">RegExp 对象的attributes参数</link>中的解释：</para>
+            <blockquote>参数 attributes
+                <para>是一个可选的字符串，包含属性 "g"、"i" 和 "m"，分别用于指定全局匹配、区分大小写的匹配和多行匹配。</para>
+                <para>ECMAScript 标准化之前，不支持 m 属性。</para>
+                <para><emphasis>如果pattern是正则表达式，而不是字符串，则必须省略该参数。</emphasis></para>
+            </blockquote>
+            <para>而我此处使用match过程中，pattern中是正则表达式，所以，不能加此gi等参数的。</para>
+            <para></para>
+        </listitem>
+        <listitem>
+            <para></para>
+            <para></para>
+            <para></para>
+        </listitem>
+    </orderedlist>
+    <para></para>
+</sect1>
+
+</chapter>

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="php_pcre">
+<title>PHP中的正则表达式的学习心得</title>
+<abstract></abstract>
+
+<sect1 xml:id="php_pcre_intro"><title>PHP中的正则表达式的简介</title>
+    <para>PHP中的正则表达式，总称为<link xl:href="http://www.php.net/manual/zh/ref.pcre.php">PCRE系列函数</link>，对应的是一堆以<emphasis>preg_</emphasis>开头的函数：</para>
+    <itemizedlist>
+        <listitem>preg_match
+            <para>执行一个正则表达式匹配</para>
+        </listitem>
+        <listitem>preg_match_all
+            <para>执行一个全局正则表达式匹配</para>
+        </listitem>
+        <listitem>preg_replace
+            <para>执行一个正则表达式的搜索和替换</para>
+        </listitem>
+        <listitem>preg_split
+            <para>通过一个正则表达式分隔字符串</para>
+        </listitem>
+        <listitem>preg_filter
+            <para>执行一个正则表达式搜索和替换</para>
+        </listitem>
+        <listitem>preg_grep
+            <para>返回匹配模式的数组条目</para>
+        </listitem>
+        <listitem>preg_last_error
+            <para>返回最后一个PCRE正则执行产生的错误代码</para>
+        </listitem>
+        <listitem>preg_quote
+            <para>转义正则表达式字符</para>
+        </listitem>
+        <listitem>preg_replace_callback
+            <para>执行一个正则表达式搜索并且使用一个回调进行替换</para>
+        </listitem>
+    </itemizedlist>
+</sect1>
+
+<sect1 xml:id="php_pcre_syntax"><title>PHP正则表达式的语法</title>
+    <para>关于PHP中的语法，所有内容都可以在这里找到<link xl:href="http://cn.php.net/pcre">Regular Expressions (Perl-Compatible)</link></para>
+    <para>下面只是摘录相关的链接，以方便有需要的，直接点击对应链接看自己所关心的内容：</para>
+    <itemizedlist>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.introduction.php">简介</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.delimiters.php">分隔符</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.meta.php">元字符</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.escape.php">转义序列(反斜线)</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.unicode.php">Unicode字符属性</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.anchors.php">锚</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.dot.php">句点</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.character-classes.php">字符类(方括号)</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.alternation.php">可选路径(|)</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.internal-options.php">内部选项设置</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.subpatterns.php">子组(子模式)</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.repetition.php">重复/量词</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.back-references.php">后向引用</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.assertions.php">断言</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.onlyonce.php">一次性子组</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.conditional.php">条件子组</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.comments.php">注释</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.recursive.php">递归模式</link></listitem>
+        <listitem><link xl:href="http://cn.php.net/manual/zh/regexp.reference.performance.php">性能</link></listitem>
+    </itemizedlist>
+</sect1>
+
+<sect1 xml:id="php_pcre_example"><title>PHP中正则表达式用法举例</title>
+    <example xml:id="eg.extract_pic_url"><title>从html中提取skydrive图片的url</title>
+        <para>想要从一段html中提取出这样的地址：</para>
+        <screen>http://storage.live.com/items/9A8B8BF501A38A36!1211?filename=%e7%82%b9%e5%87%bb%e7%ac%ac%e5%87%a0%e9%a1%b5.jpg</screen>
+        <para>然后对应的php代码为：</para>
+        <programlisting language="php">
+<![CDATA[
+# current support valid pic suffiex: 'bmp', 'gif', 'jpeg', 'jpg', 'jpe', 'png', 'tiff', 'tif'
+$picSufChars = "befgijmnptBEFGIJMNPT";
+//$pattern = '#<a href="(?P<picUrl>http://storage.live.com/items/.+?filename=.+?\.jpg)"><img.+?src="(?P=picUrl)".+?/></a>#';
+$pattern = '#<a href="(?P<picUrl>http://storage.live.com/items/.+?filename=.+?\.['.$picSufChars.']{3,4})"><img.+?src="(?P=picUrl)".+?/></a>#';
+
+if(preg_match($pattern, $content, $matches)){
+    $picUrl = $matches["picUrl"];
+    //print "found picUrl=".$picUrl;
+    if(preg_match('#http://storage\.live\.com/items/.+?filename=(?P<filename>.+)#', $picUrl, $foundFilename)){
+        $filename = $foundFilename["filename"];
+        $filename = rawurldecode($filename);
+    }
+    else{
+        $filename = "";
+    }
+     
+} else {
+    $picUrl = "";
+}
+]]>
+        </programlisting>
+    </example>
+    <para>详细代码可参考<link xl:href="http://www.crifan.com/wordpress_theme_retina_add_support_show_thumbnail_for_first_skydrive_picture_in_content_html/">【已解决】给Retina 0.2中添加支持日志缩略图中显示文章中所包含的第一张图片</link></para>
+</sect1>
+
+<sect1 xml:id="php_pcre_summary"><title>PHP正则表达式的使用心得或注意事项</title>
+    <para></para>
+</sect1>
+
+</chapter>

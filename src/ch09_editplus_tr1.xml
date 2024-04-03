@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="editplus_tr1">
+<title>Editplus中的正则表达式的学习心得</title>
+<abstract></abstract>
+
+<sect1 xml:id="editplus_tr1_intro"><title>EditPlus中的正则表达式的简介</title>
+    <para>EditPlus中的正则表达式，算是有两种：</para>
+    <itemizedlist>
+        <listitem>没有选中"Use TR1 regular expression"
+            <para>正则的功能，是支持，但是极度的弱，不好用。</para>
+        </listitem>
+        <listitem>选中"Use TR1 regular expression"
+            <para>即，使用C++的TR1的正则，简单说就是，从原先的，功能很弱的正则，升级到功能相对正常的正则，支持常见的正则的语法了</para>
+        </listitem>
+    </itemizedlist>
+</sect1>
+
+<sect1 xml:id="editplus_tr1_syntax"><title>EditPlus正则表达式的语法</title>
+    <para>如果想要使用，正常的正则，需要去开启TR1选项：</para>
+    <para>Tools->Preferences->General -> Use TR1 regular expression</para>
+    <para>然后就可以正常的使用正则了。</para>
+    <para>不过，官网中也没给出相关的TR1的语法。所以，只能靠自己，对于常见的正则的语法的了解去写正则了。</para>
+    <para>但是关于TR1的解释，倒是可以参考微软的官网解释：<link xl:href="http://msdn.microsoft.com/en-us/library/bb982727.aspx">TR1 Regular Expressions</link></para>
+</sect1>
+
+<sect1 xml:id="editplus_tr1_example"><title>EditPlus中正则表达式用法举例</title>
+    <example xml:id="eg.extract_some_pattern"><title>查找某个格式的字符串</title>
+        <para>想要从：</para>
+        <screen>
+<![CDATA[
+up/114567/img
+up/120305/img
+up/1205/img
+]]>
+        </screen>
+        <para>中，查找12开头、数字为4位的字符，即：</para>
+        <screen>
+<![CDATA[
+up/1205/img
+]]>
+        </screen>
+        <para>在选中了上面那个"Use TR1 regular expression"的前提下，用的正则是：</para>
+        <screen>
+<![CDATA[
+up/12\d{2}/img
+]]>
+        </screen>
+        <para>详细代码可参考<link xl:href="http://www.crifan.com/editplus_regular_expression_function_is_too_weak_and_has_bug/">【吐槽】Editplus中的正则表达式，功能虽然不垃圾，但相关的文档却很垃圾</link></para>
+    </example>
+</sect1>
+
+</chapter>

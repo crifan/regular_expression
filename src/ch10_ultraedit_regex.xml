@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ultraedit_regex">
+<title>UltraEdit中的正则表达式的学习心得</title>
+<abstract></abstract>
+
+<sect1 xml:id="ultraedit_regex_intro"><title>UltraEdit中的正则表达式的简介</title>
+    <para>UltraEdit中的正则表达式，支持三种：</para>
+    <itemizedlist>
+        <listitem>Perl
+            <para>用Perl的正则表达式的语法</para>
+        </listitem>
+        <listitem>Unix
+            <para>用常见的标准的正则的语法</para>
+        </listitem>
+        <listitem>UltraEdit
+            <para>用UltraEdit自己的一套的正则的语法</para>
+        </listitem>
+    </itemizedlist>
+    <para></para>
+</sect1>
+
+<sect1 xml:id="ultraedit_regex_syntax"><title>UltraEdit的正则表达式的语法</title>
+    <para>UltraEdit中的正则，支持三种语法，全部都可以在官网页面中找到具体的语法的解释：</para>
+    <itemizedlist>
+        <listitem>Unix和UltraEdit版本的正则的语法
+            <para><link xl:href="http://www.ultraedit.com/support/tutorials_power_tips/ultraedit/regular_expressions.html">Regular expressions</link></para>
+        </listitem>
+        <listitem>Perl版本的正则的语法
+            <para><link xl:href="http://www.ultraedit.com/support/tutorials_power_tips/ultraedit/perl-regular-expressions.html">Perl regular expressions: Getting started</link></para>
+            <para><link xl:href="http://www.ultraedit.com/support/tutorials_power_tips/ultraedit/non-greedy-perl-regex.html">Perl regular expressions: Non-greedy regex</link></para>
+            <para><link xl:href="http://www.ultraedit.com/support/tutorials_power_tips/ultraedit/perl-regular-expressions-digging-deeper.html">Perl regular expressions: Digging deeper</link></para>
+            <para><link xl:href="http://www.ultraedit.com/support/tutorials_power_tips/ultraedit/perl-regular-expressions-backreferences.html">Perl regular expressions: Backreferences</link></para>
+        </listitem>
+    </itemizedlist>
+</sect1>
+
+<sect1 xml:id="ultraEdit_regex_example"><title>UltraEdit中正则表达式用法举例</title>
+    <example xml:id="eg.change_resolution_value"><title>查找并更改height和width的值</title>
+        <para>对于如下内容：</para>
+        <screen>
+./xcode.configVpp.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 0
+./xcode.configVpp.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 1
+./xcode.configVpp.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 2
+./xcode.configVpp.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 3
+./xcode.configVpp.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 4
+./xcode.configVSC.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 5
+./xcode.configVSC.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 6
+./xcode.configVSC.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 7
+./xcode.configVpp.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 8
+./xcode.configVSC.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 9
+./xcode.configVSC.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 10
+./xcode.configVSC.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 11
+./xcode.configVpp.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 12
+        </screen>
+        <para>想要实现：只想要处理instance后面是0 4 8 12的行，将720替换成576，1280替换成1024</para>
+        <para>则，在UltraEdit中，需要：</para>
+        <para>正则的语法，注意要选择为：Perl，而不能选择为Unix，其原因，详见：<link xl:href="http://www.crifan.com/ultraedit_unix_version_regex_not_support_more_than_two_item_do_or">【整理】UltraEdit中的Unix版本的正则竟然不支持超过2个或者关系</link></para>
+        <para>然后查找和替换的正则分别为：</para>
+        <screen>
+-height\s+\d+\s+-width\s+\d+\s+-vidformat\s+1\s+-instance\s+(0|2|4|8)
+-height 576 -width 1024 -vidformat 1 -instance \1
+        </screen>
+        <para>就可以替换为：</para>
+        <screen>
+./xcode.configVpp.pl -frmrate 5 -height 576 -width 1024 -vidformat 1 -instance 0
+./xcode.configVpp.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 1
+./xcode.configVpp.pl -frmrate 5 -height 576 -width 1024 -vidformat 1 -instance 2
+./xcode.configVpp.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 3
+./xcode.configVpp.pl -frmrate 5 -height 576 -width 1024 -vidformat 1 -instance 4
+./xcode.configVSC.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 5
+./xcode.configVSC.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 6
+./xcode.configVSC.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 7
+./xcode.configVpp.pl -frmrate 5 -height 576 -width 1024 -vidformat 1 -instance 8
+./xcode.configVSC.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 9
+./xcode.configVSC.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 10
+./xcode.configVSC.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 11
+./xcode.configVpp.pl -frmrate 5 -height 720 -width 1280 -vidformat 1 -instance 12
+        </screen>
+    </example>
+</sect1>
+
+<sect1 xml:id="ultraedit_regex_summary"><title>UltraEdit正则表达式的使用心得或注意事项</title>
+    <sect2 xml:id="use_replace_not_file_replace"><title>是"替换"而不是"在文件中替换"</title>
+        <para>普通常见的要去做替换操作，处理当前文件中的内容，则是从：搜索->替换，打开的替换的对话框，而不是：搜索->在文件中替换。</para>
+        <para>否则每次去替换，还会提示你"在文件中替换可能会修改驱动器上的许多文件"</para>
+        <para>详见：<link xl:href="http://www.crifan.com/ultraedit_unix_version_regex_not_support_more_than_two_item_do_or">【整理】UltraEdit中的Unix版本的正则竟然不支持超过2个或者关系</link></para>
+    </sect2>
+    <sect2 xml:id="unix_regex_or_not_more_two"><title>Unix版本的正则中的OR操作不支持超过2个的</title>
+        <para>用Unix的正则时，OR操作，不支持超过2个的。</para>
+        <para>详见：<link xl:href="http://www.crifan.com/ultraedit_unix_version_regex_not_support_more_than_two_item_do_or">【整理】UltraEdit中的Unix版本的正则竟然不支持超过2个或者关系</link></para>
+    </sect2>
+</sect1>
+
+</chapter>

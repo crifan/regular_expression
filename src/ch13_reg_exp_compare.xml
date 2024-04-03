@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="reg_exp_compare">
+<title>不用语言之间的正则表达式的比较</title>
+<abstract></abstract>
+
+<sect1 xml:id="reg_exp_comparation"><title>一些关于正则表达式中的比较</title>
+    <tip><title>旧帖</title>
+        <para>此部分的内容的旧帖为：<link xl:href="http://www.crifan.com/summary_regular_expression_csharp_python/">【总结】关于（C#和Python中的）正则表达式</link></para>
+    </tip>
+    <para>下面对于各种语言之间的正则表达式的语法，进行简单的比较：</para>
+    <table xml:id="tbl.diff_lan_re_vs"><title>不同语言间正则表达式写法的比较</title>
+        <tgroup cols="6">
+            <colspec colnum="1" colname="col1" colwidth="1*" />
+            <colspec colnum="2" colname="col2" colwidth="1*" />
+            <colspec colnum="3" colname="col3" colwidth="1*" />
+            <colspec colnum="4" colname="col4" colwidth="1*" />
+            <colspec colnum="5" colname="col5" colwidth="1*" />
+            <colspec colnum="6" colname="col6" colwidth="1*" />
+            
+            <thead>
+                <row><entry></entry><entry>Python</entry><entry>C#</entry><entry>PHP</entry><entry>Javascript</entry><entry>Notepad++</entry></row>
+            </thead>
+            
+            <tbody>
+                <row><entry>Named Group</entry><entry>(?P&lt;groupName&gt;xxx)<co id="co.named_group_py" linkends="co.note.named_group_py" /></entry><entry>(?&lt;groupName&gt;xxx)<co id="co.named_group_cs" linkends="co.note.named_group_cs" /></entry><entry></entry><entry></entry><entry></entry></row>
+                <row><entry>正则表达式字符串的表示方法</entry><entry>r"(.+?)"</entry><entry>@"(.+?)"</entry><entry></entry><entry></entry><entry></entry></row>
+                <row><entry>向前匹配（prev match）</entry><entry>(?&lt;=xxx)<co id="co.prev_post_py" linkends="co.note.prev_post_py" /></entry><entry>(?&lt;=xxx)<co id="co.prev_post_cs" linkends="co.note.prev_post_cs" /></entry><entry></entry><entry></entry><entry></entry></row>
+                <row><entry>向后匹配（post match）</entry><entry>(?=xxx)<coref linkend="co.prev_post_py" /></entry><entry>(?=xxx)<coref linkend="co.prev_post_cs" /></entry><entry></entry><entry></entry><entry></entry></row>
+                <row><entry>向前一定不要匹配（prev non-match）</entry><entry>(?&lt;!xxx)<coref linkend="co.prev_post_py" /></entry><entry>(?&lt;!xxx)<coref linkend="co.prev_post_cs" /></entry><entry></entry><entry></entry><entry></entry></row>
+                <row><entry>向后一定不要匹配（post non-match）</entry><entry>(?&lt;=xxx)<coref linkend="co.prev_post_py" /></entry><entry>(?&lt;=xxx)<coref linkend="co.prev_post_cs" /></entry><entry></entry><entry></entry><entry></entry></row>
+                <row><entry></entry><entry></entry><entry></entry><entry></entry><entry></entry><entry></entry></row>
+            </tbody>
+        </tgroup>
+    </table>
+    <calloutlist>
+        <callout id="co.note.named_group_py" arearefs="co.named_group_py">
+            <para>示例代码为：</para>
+            <programlisting language="python">
+<![CDATA[
+import re;
+
+#------------------------------------------------------------------------------
+def testBackReference():
+    # back reference (?P=name) test
+    backrefValidStr = '"group":0,"iconType":"NonEmptyDocumentFolder","id":"9A8B8BF501A38A36!601","itemType":32,"name":"released","ownerCid":"9A8B8BF501A38A36"';
+    backrefInvalidStr = '"group":0,"iconType":"NonEmptyDocumentFolder","id":"9A8B8BF501A38A36!601","itemType":32,"name":"released","ownerCid":"987654321ABCDEFG"';
+    backrefP = r'"group":\d+,"iconType":"\w+","id":"(?P<userId>\w+)!\d+","itemType":\d+,"name":".+?","ownerCid":"(?P=userId)"'
+    userId = "";
+     
+    foundBackref = re.search(backrefP, backrefValidStr);
+    print "foundBackref=",foundBackref; # foundBackref= <_sre.SRE_Match object at 0x02B96660>
+    if(foundBackref):
+        userId = foundBackref.group("userId");
+        print "userId=",userId; # userId= 9A8B8BF501A38A36
+        print "can found userId here";
+         
+    foundBackref = re.search(backrefP, backrefInvalidStr);
+    print "foundBackref=",foundBackref; # foundBackref= None
+    if(not foundBackref):
+        print "can NOT found userId here";
+     
+    return ;
+]]>
+            </programlisting>
+        </callout>
+        <callout id="co.note.named_group_cs" arearefs="co.named_group_cs">
+            <para>示例代码为：</para>
+            <programlisting language="csharp">
+<![CDATA[
+using System.Text.RegularExpressions;
+
+void testBackReference()
+{
+    // back reference \k<name> test
+    string backrefValidStr = "\"group\":0,\"iconType\":\"NonEmptyDocumentFolder\",\"id\":\"9A8B8BF501A38A36!601\",\"itemType\":32,\"name\":\"released\",\"ownerCid\":\"9A8B8BF501A38A36\"";
+    string backrefInvalidStr = "\"group\":0,\"iconType\":\"NonEmptyDocumentFolder\",\"id\":\"9A8B8BF501A38A36!601\",\"itemType\":32,\"name\":\"released\",\"ownerCid\":\"987654321ABCDEFG\"";
+    string backrefP = @"""group"":\d+,""iconType"":""\w+"",""id"":""(?<userId>\w+)!\d+"",""itemType"":\d+,""name"":"".+?"",""ownerCid"":""\k<userId>""";
+    string userId = "";
+    Regex backrefValidRx = new Regex(backrefP);
+    Match foundBackref;
+ 
+    foundBackref = backrefValidRx.Match(backrefValidStr);
+    if (foundBackref.Success)
+    {
+        // can found the userId
+        userId = foundBackref.Groups["userId"].Value;
+        MessageBox.Show("can found the userId !");
+    }
+ 
+    foundBackref = backrefValidRx.Match(backrefInvalidStr);
+    if (foundBackref.Success)
+    {
+        // can NOT found the userId
+    }
+    else
+    {
+        MessageBox.Show("can NOT found the userId !");
+    }    
+}
+]]>
+            </programlisting>
+        </callout>
+        <callout id="co.note.prev_post_py" arearefs="co.prev_post_py">
+            <para>示例代码为：</para>
+            <programlisting language="python">
+<![CDATA[
+import re;
+
+#------------------------------------------------------------------------------
+def testPrevPostMatch():
+    # post match:       (?=xxx)
+    # post non-match:   (?!xxx)
+    # prev match:       (?<=xxx)
+    # prev non-match:   (?<!xxx)
+     
+    #note that input string is:
+    #src=\"http://b101.photo.store.qq.com/psb?/V10ppwxs00XiXU/5dbOIlYaLYVPWOz*1nHYeSFq09Z5rys72RIJszCsWV8!/b/YYUOOzy3HQAAYqsTPjz7HQAA\"
+    qqPicUrlStr             = 'src=\\"http://b101.photo.store.qq.com/psb?/V10ppwxs00XiXU/5dbOIlYaLYVPWOz*1nHYeSFq09Z5rys72RIJszCsWV8!/b/YYUOOzy3HQAAYqsTPjz7HQAA\\"';
+    qqPicUrlInvalidPrevStr  = '1234567http://b101.photo.store.qq.com/psb?/V10ppwxs00XiXU/5dbOIlYaLYVPWOz*1nHYeSFq09Z5rys72RIJszCsWV8!/b/YYUOOzy3HQAAYqsTPjz7HQAA\\"';
+    qqPicUrlInvalidPostStr  = 'src=\\"http://b101.photo.store.qq.com/psb?/V10ppwxs00XiXU/5dbOIlYaLYVPWOz*1nHYeSFq09Z5rys72RIJszCsWV8!/b/YYUOOzy3HQAAYqsTPjz7HQAA123';
+    canFindPrevPostP = r'(?<=src=\\")(?P<qqPicUrl>http://.+?\.qq\.com.+?)(?=\\")';
+    qqPicUrl = "";
+ 
+    foundPrevPost = re.search(canFindPrevPostP, qqPicUrlStr);
+    print "foundPrevPost=",foundPrevPost; #
+    if(foundPrevPost):
+        qqPicUrl = foundPrevPost.group("qqPicUrl");
+        print "qqPicUrl=",qqPicUrl; # qqPicUrl= http://b101.photo.store.qq.com/psb?/V10ppwxs00XiXU/5dbOIlYaLYVPWOz*1nHYeSFq09Z5rys72RIJszCsWV8!/b/YYUOOzy3HQAAYqsTPjz7HQAA
+        print "can found qqPicUrl here";
+ 
+    foundInvalidPrev = re.search(canFindPrevPostP, qqPicUrlInvalidPrevStr);
+    print "foundInvalidPrev=",foundInvalidPrev; # foundInvalidPrev= None
+    if(not foundInvalidPrev):
+        print "can NOT found qqPicUrl here";
+         
+    foundInvalidPost = re.search(canFindPrevPostP, qqPicUrlInvalidPostStr);
+    print "foundInvalidPost=",foundInvalidPost; # foundInvalidPost= None
+    if(not foundInvalidPost):
+        print "can NOT found qqPicUrl here";
+ 
+    return ;
+]]>
+            </programlisting>
+        </callout>
+        <callout id="co.note.prev_post_cs" arearefs="co.prev_post_cs">
+            <para>示例代码为：</para>
+            <programlisting language="csharp">
+<![CDATA[
+using System.Text.RegularExpressions;
+
+void testPrevPostMatch()
+{
+    //http://msdn.microsoft.com/en-us/library/bs2twtah(v=vs.71).aspx
+    // post match:       (?=xxx)
+    // post non-match:   (?!xxx)
+    // prev match:       (?<=xxx)
+    // prev non-match:   (?<!xxx)
+     
+    //src=\"http://b101.photo.store.qq.com/psb?/V10ppwxs00XiXU/5dbOIlYaLYVPWOz*1nHYeSFq09Z5rys72RIJszCsWV8!/b/YYUOOzy3HQAAYqsTPjz7HQAA\"
+    string qqPicUrlStr              = "src=\\\"http://b101.photo.store.qq.com/psb?/V10ppwxs00XiXU/5dbOIlYaLYVPWOz*1nHYeSFq09Z5rys72RIJszCsWV8!/b/YYUOOzy3HQAAYqsTPjz7HQAA\\\"";
+    string qqPicUrlInvalidPrevStr   = "12345678http://b101.photo.store.qq.com/psb?/V10ppwxs00XiXU/5dbOIlYaLYVPWOz*1nHYeSFq09Z5rys72RIJszCsWV8!/b/YYUOOzy3HQAAYqsTPjz7HQAA\\\"";
+    string qqPicUrlInvalidPostStr   = "src=\\\"http://b101.photo.store.qq.com/psb?/V10ppwxs00XiXU/5dbOIlYaLYVPWOz*1nHYeSFq09Z5rys72RIJszCsWV8!/b/YYUOOzy3HQAAYqsTPjz7HQAA1234";
+    string canFindPrevPostP = @"(?<=src=\\"")(?<qqPicUrl>http://.+?\.qq\.com.+?)(?=\\"")";
+    string qqPicUrl = "";
+ 
+    Regex prevPostRx = new Regex(canFindPrevPostP);
+ 
+    Match foundPrevPost = prevPostRx.Match(qqPicUrlStr);
+    if (foundPrevPost.Success)
+    {
+        qqPicUrl = foundPrevPost.Groups["qqPicUrl"].Value;
+        MessageBox.Show("can found the qqPicUrl !");
+    }
+ 
+    Match foundInvalidPrev = prevPostRx.Match(qqPicUrlInvalidPrevStr);
+    if (!foundInvalidPrev.Success)
+    {
+        MessageBox.Show("can NOT found the qqPicUrl !");
+    }
+ 
+    Match foundInvalidPost = prevPostRx.Match(qqPicUrlInvalidPostStr);
+    if (!foundInvalidPost.Success)
+    {
+        MessageBox.Show("can NOT found the qqPicUrl !");
+    }
+}
+]]>
+            </programlisting>
+        </callout>
+    </calloutlist>
+</sect1>
+
+
+</chapter>
